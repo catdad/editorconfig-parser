@@ -1,10 +1,11 @@
 {
-  "name": "editorconfig-tools",
+  "name": "editorconfig-parser",
   "version": "0.0.1",
   "description": "parse and serialize editorconfog files",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "coverage": "istanbul cover --dir coverage node_modules/mocha/bin/_mocha -x \"third-party/**\""
   },
   "author": "Kiril Vatev <vatev.1@gmail.com>",
   "license": "ISC",
@@ -13,5 +14,8 @@
     "chai": "^3.5.0",
     "istanbul": "^0.4.4",
     "mocha": "^2.5.3"
+  },
+  "directories": {
+    "test": "test"
   }
 }
