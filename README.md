@@ -12,8 +12,8 @@ npm install editorconfig-parser
 
 The following fuctions are available for general use:
 
-* `**parse({String} str)** → {Object}`: parse an editorconfig file to an object.
-* `**serialize({Object} obj)** → {String}`: serialize an object to an editorconfig file.
+* **`parse({String} str)`** → `{Object}`: parse an editorconfig file to an object.
+* **`serialize({Object} obj)`** → `{String}`: serialize an object to an editorconfig file.
 
 ```javascript
 var fs = require('fs');
@@ -52,8 +52,8 @@ Example of a parsed editorconfig object:
 
 [Editorconfig](https://github.com/editorconfig/editorconfig-core-js) itself uses a modified parser that provides the content in an array instead of an object. Theoretically, this is safer, since it absolutely guaranteed order. Unless you are doing something crazy though, the object above will do just fine and will be much easier to manipulate than the array. However, this module will support parsing and serializing the array-based version as well, though the following methods:
 
-* `**parseRaw({String} str)** → {Array}`: parse an editorconfig file to an array.
-* `**serializeRaw({Array} arr)** → {String}`: serialize an array to an editorconfig file.
+* **`parseRaw({String} str)`** → `{Array}`: parse an editorconfig file to an array.
+* **`serializeRaw({Array} arr)`** → `{String}`: serialize an array to an editorconfig file.
 
 ```javascript
 var fs = require('fs');
