@@ -1,5 +1,6 @@
 /* jshint node: true */
 
+var util = require('util');
 var ini = require('./third-party/ini.js');
 
 function forEach(obj, func, ctx) {
@@ -16,8 +17,8 @@ function ecToIni(ec) {
     if (!Array.isArray(ec)) {
         throw new Error('raw parameter must be an array');
     }
-    
-    ec.reduce(ec, function(seed, arr) {
+
+    return ec.reduce(function(seed, arr) {
         if (arr[0] === null && arr[1] && arr[1].root !== undefined) {
             return { root: arr[1].root };
         }
@@ -39,15 +40,20 @@ function serialize(obj) {
     var elems = [];
     
     forEach(obj, function(val, key) {
+        // make sure `root` always goes first
         if (key === 'root') {
-            elems.unshift(key + ' = ' + val);
+            // add a blank life after
+            elems.unshift('');
+            elems.unshift(util.format('%s = %s', key, val));
         } else if (typeof val === 'object') {
-            elems.push(key);
+            elems.push(util.format('[%s]', key));
             elems.push(serialize(val));
+        } else {
+            elems.push(util.format('%s = %s', key, val));
         }
     });
     
-    return elems.join('\n');
+    return elems.join('\n').trim() + '\n';
 }
 
 function serializeRaw(arr) {
