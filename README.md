@@ -1,5 +1,28 @@
 # editorconfig parser
 
+[![Build][1]][2]
+[![Test Coverage][3]][4]
+[![Code Climate][5]][6]
+[![Downloads][7]][8]
+[![Version][9]][8]
+[![Dependency Status][10]][11]
+
+[1]: https://travis-ci.org/catdad/editorconfig-parser.svg?branch=master
+[2]: https://travis-ci.org/catdad/editorconfig-parser
+
+[3]: https://codeclimate.com/github/catdad/editorconfig-parser/badges/coverage.svg
+[4]: https://codeclimate.com/github/catdad/editorconfig-parser/coverage
+
+[5]: https://codeclimate.com/github/catdad/editorconfig-parser/badges/gpa.svg
+[6]: https://codeclimate.com/github/catdad/editorconfig-parser
+
+[7]: https://img.shields.io/npm/dm/editorconfig-parser.svg
+[8]: https://www.npmjs.com/package/editorconfig-parser
+[9]: https://img.shields.io/npm/v/editorconfig-parser.svg
+
+[10]: https://david-dm.org/catdad/editorconfig-parser.svg
+[11]: https://david-dm.org/catdad/editorconfig-parser
+
 Parse and serialize [.editorconfig](http://editorconfig.org/) files.
 
 ## Install
@@ -63,7 +86,7 @@ var ec = require('editorconfig-parser');
 var file = fs.readFileSync('.editorconfig', 'utf8');
 
 var arr = ec.parseRaw(file);
-// modify object
+// modify array
 var str = ec.serializeRaw(arr);
 
 // write the new file
