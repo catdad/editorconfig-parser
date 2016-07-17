@@ -1,6 +1,6 @@
 {
   "name": "editorconfig-parser",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "parse and serialize editorconfog files",
   "main": "index.js",
   "scripts": {
