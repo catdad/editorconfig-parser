@@ -68,6 +68,11 @@ function serialize(obj) {
         }
     });
     
+    // this will result in an empty file
+    if (elems.length === 0) {
+        return '';
+    }
+    
     // we could end up with multiple new lines at the
     // end due to recurssion, so we'll trim that, and
     // add a single new line
