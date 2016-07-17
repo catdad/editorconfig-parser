@@ -81,5 +81,20 @@ describe('[index]', function() {
             var str = ec.serializeRaw(NULL_RULE);
             expect(str).to.be.a('string').and.to.equal('');
         });
+        
+        it('serializes an empty array into an empty string', function() {
+            var str = ec.serializeRaw([]);
+            expect(str).to.be.a('string').and.to.equal('');
+        });
+        
+        it('serializes an array of empty arrays into an empty string', function() {
+            var str;
+            
+            str = ec.serializeRaw([[]]);
+            expect(str).to.be.a('string').and.to.equal('');
+            
+            str = ec.serializeRaw([[], []]);
+            expect(str).to.be.a('string').and.to.equal('');
+        });
     });
 });
