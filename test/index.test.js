@@ -145,6 +145,16 @@ describe('[index]', function() {
             expect(str).to.equal('');
         });
         
+        it('serializes the root rule first, even if it is not first in the object', function() {
+            var OBJ = {
+                'rule': { things: 'stuff' },
+                root: true
+            };
+            
+            var str = ec.serialize(OBJ);
+            expect(str).to.match(/^root = true/);
+        });
+        
         testNonObjectValues(ec.serialize.bind(ec));
     });
     
