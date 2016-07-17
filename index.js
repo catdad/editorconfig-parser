@@ -13,11 +13,28 @@ function forEach(obj, func, ctx) {
     }
 }
 
-function ecToIni(ec) {
-    if (!Array.isArray(ec)) {
-        throw new Error('raw parameter must be an array');
+function validateString(str) {
+    if (typeof str !== 'string') {
+        throw new TypeError('parse input must be a string');
     }
+}
 
+function validateArray(arr) {
+    if (!Array.isArray(arr)) {
+        throw new TypeError('raw parameter must be an array');
+    }
+}
+
+function validateObject(obj) {
+    // not a totally complete check, but it is good enough
+    if (Object.prototype.toString.call(obj) !== '[object Object]') {
+        throw new TypeError('serialize parameter must be an object');
+    }
+}
+
+function ecToIni(ec) {
+    validateArray(ec);
+    
     return ec.reduce(function(seed, arr) {
         if (arr[0] === null && arr[1] && arr[1].root !== undefined) {
             var newSeed = { root: arr[1].root };
@@ -40,14 +57,20 @@ function ecToIni(ec) {
 }
 
 function parse(str) {
+    validateString(str);
+    
     return ecToIni(ini.parseString(str));
 }
 
 function parseRaw(str) {
+    validateString(str);
+    
     return ini.parseString(str);
 }
 
 function serialize(obj) {
+    validateObject(obj);
+    
     var elems = [];
     
     forEach(obj, function(val, key) {

@@ -30,6 +30,77 @@ var NULL_RULE = [[ null, {} ]];
 
 describe('[index]', function() {
     
+    function stringify(val) {
+        return JSON.stringify(val) || (
+            val === undefined ?
+                'undefined' :
+                val.toString()
+        );
+    }
+    
+    function testNonStringValues(func) {
+        [
+            null,
+            undefined,
+            12,
+            [],
+            {},
+            function() {}
+        ].forEach(function(val) {
+            var strVal = stringify(val);
+            
+            function throwFunc() {
+                return func(val);
+            }
+            
+            it('throws for non-string value: ' + strVal, function() {
+                expect(throwFunc).to.throw(TypeError, 'parse input must be a string');
+            });
+        });
+    }
+    
+    function testNonArrayValues(func) {
+        [
+            null,
+            undefined,
+            12,
+            'string',
+            {},
+            function() {}
+        ].forEach(function(val) {
+            var strVal = stringify(val);
+            
+            function throwFunc() {
+                return func(val);
+            }
+            
+            it('throws for non-array value: ' + strVal, function() {
+                expect(throwFunc).to.throw(TypeError, 'raw parameter must be an array');
+            });
+        });
+    }
+    
+    function testNonObjectValues(func) {
+        [
+            null,
+            undefined,
+            12,
+            'string',
+            [],
+            function() {}
+        ].forEach(function(val) {
+            var strVal = stringify(val);
+            
+            function throwFunc() {
+                return func(val);
+            }
+            
+            it('throws for non-array value: ' + strVal, function() {
+                expect(throwFunc).to.throw(TypeError, 'serialize parameter must be an object');
+            });
+        });
+    }
+    
     describe('#parse', function() {
         it('parses an editorconfig file', function() {
             var obj = ec.parse(FILE);
@@ -42,6 +113,8 @@ describe('[index]', function() {
             var obj = ec.parse('');
             expect(obj).to.deep.equal({});
         });
+        
+        testNonStringValues(ec.parse.bind(ec));
     });
     
     describe('#parseRaw', function() {
@@ -56,6 +129,8 @@ describe('[index]', function() {
             var arr = ec.parseRaw('');
             expect(arr).to.deep.equal(NULL_RULE);
         });
+        
+        testNonStringValues(ec.parseRaw.bind(ec));
     });
     
     describe('#serialize', function() {
@@ -69,6 +144,8 @@ describe('[index]', function() {
             var str = ec.serialize({});
             expect(str).to.equal('');
         });
+        
+        testNonObjectValues(ec.serialize.bind(ec));
     });
     
     describe('#serializeRaw', function() {
@@ -96,5 +173,7 @@ describe('[index]', function() {
             str = ec.serializeRaw([[], []]);
             expect(str).to.be.a('string').and.to.equal('');
         });
+        
+        testNonArrayValues(ec.serializeRaw.bind(ec));
     });
 });
