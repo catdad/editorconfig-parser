@@ -43,6 +43,9 @@ function ecToIni(ec) {
             // root is first in the object. Serialize
             // should take care of this, but we will
             // do it here for the object anyway.
+            //
+            // Actually, the ini parser has a bug and it
+            // mishandles anything before root... bummer.
             forEach(seed, function(val, key) {
                 newSeed[key] = val;
             });

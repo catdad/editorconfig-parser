@@ -114,6 +114,12 @@ describe('[index]', function() {
             expect(obj).to.deep.equal({});
         });
         
+        it.skip('will put the root rule at the top even if it is not at the top in the file', function() {
+            var obj = ec.parse('thing = stuff\nroot = true');
+            var keys = Object.keys(obj);
+            expect(keys[0]).to.equal('root');
+        });
+        
         testNonStringValues(ec.parse.bind(ec));
     });
     
@@ -128,6 +134,11 @@ describe('[index]', function() {
         it('parses an empty string into an array with an empty null rule', function() {
             var arr = ec.parseRaw('');
             expect(arr).to.deep.equal(NULL_RULE);
+        });
+        
+        it.skip('will put the root rule at the top even if it is not at the top in the file', function() {
+            var arr = ec.parseRaw('thing = stuff\nroot = true');
+            expect(arr[0]).to.deep.equal([ null, { root: true }]);
         });
         
         testNonStringValues(ec.parseRaw.bind(ec));
